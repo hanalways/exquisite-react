@@ -28,13 +28,15 @@ class PlayerSubmissionForm extends Component {
     const { adj1, noun1, adverb, verb, adj2, noun2, player } = this.state;
 
     const newLine = `${adj1} ${noun1} ${adverb} ${verb} ${adj2} ${noun2} .`
-    //   adj1: adj1, 
-    //   noun1: noun1,
-    //   adverb: adverb,
-    //   verb: verb, 
-    //   adj2: adj2,
-    //   noun2: noun2
-    // }  
+
+    this.setState({
+      adj1: '', 
+      noun1: '',
+      adverb: '',
+      verb: '', 
+      adj2: '',
+      noun2: ''
+    });  
 
     this.props.onAddLine(newLine);
 
