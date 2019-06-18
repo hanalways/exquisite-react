@@ -39,6 +39,7 @@ class PlayerSubmissionForm extends Component {
 
   render() {
     const { adj1, noun1, adverb, verb, adj2, noun2 } = this.state;
+    
     return (
       <div className="PlayerSubmissionForm">
         <h3>Player Submission Form for Player #{  }</h3>
@@ -49,7 +50,7 @@ class PlayerSubmissionForm extends Component {
           <div className="PlayerSubmissionForm__poem-inputs">
             The
             <input
-              name="adjective1"
+              name="adj1"
               value={adj1}
               placeholder="adjective"
               type="text"
@@ -78,7 +79,7 @@ class PlayerSubmissionForm extends Component {
             />
             the
             <input
-              name="adjective2"
+              name="adj2"
               value={adj2}
               placeholder="adjective"
               type="text"

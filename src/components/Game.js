@@ -10,7 +10,7 @@ class Game extends Component {
     super(props);
 
     this.state = {
-      allLines: null,
+      allLines: [],
       newestLine: null,
     }
   }
@@ -19,12 +19,17 @@ class Game extends Component {
     const newLineCollection = this.state.allLines;
     newLineCollection.push(newLine);
 
-    this.state({
+    this.setState({
+      newestLine: newLine,
       allLines: newLineCollection,
     })
+
+    console.log(`New line was added to the poem: ${newLine}`);
   }
 
   render() {
+    console.log(this.state.allLines);
+    console.log(this.state.newestLine);
 
     const exampleFormat = FIELDS.map((field) => {
       if (field.key) {
