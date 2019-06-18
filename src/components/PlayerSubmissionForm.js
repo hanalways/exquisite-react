@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './PlayerSubmissionForm.css';
 
 class PlayerSubmissionForm extends Component {
@@ -13,6 +14,7 @@ class PlayerSubmissionForm extends Component {
       verb: null, 
       adj2: null, 
       noun2: null,
+      player: 1,
     }
   }
 
@@ -23,26 +25,31 @@ class PlayerSubmissionForm extends Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    const { adj1, noun1, adverb, verb, adj2, noun2 } = this.state;
+    const { adj1, noun1, adverb, verb, adj2, noun2, player } = this.state;
 
-    const newLine = {
-      adj1: adj1, 
-      noun1: noun1,
-      adverb: adverb,
-      verb: verb, 
-      adj2: adj2,
-      noun2: noun2
-    }  
+    const newLine = `${adj1} ${noun1} ${adverb} ${verb} ${adj2} ${noun2} .`
+    //   adj1: adj1, 
+    //   noun1: noun1,
+    //   adverb: adverb,
+    //   verb: verb, 
+    //   adj2: adj2,
+    //   noun2: noun2
+    // }  
 
     this.props.onAddLine(newLine);
+
+    let updatePlayer = player + 1;
+    this.setState({
+      player: updatePlayer,
+    })
   }
 
   render() {
-    const { adj1, noun1, adverb, verb, adj2, noun2 } = this.state;
+    const { adj1, noun1, adverb, verb, adj2, noun2, player } = this.state;
     
     return (
       <div className="PlayerSubmissionForm">
-        <h3>Player Submission Form for Player #{  }</h3>
+        <h3>Player Submission Form for Player #{ player }</h3>
         <form 
           className="PlayerSubmissionForm__form"
           onSubmit={ this.onFormSubmit } 
@@ -101,6 +108,10 @@ class PlayerSubmissionForm extends Component {
       </div>
     );
   }
+}
+
+PlayerSubmissionForm.propTypes = {
+  onAddLine: PropTypes.func,
 }
 
 export default PlayerSubmissionForm;

@@ -51,7 +51,9 @@ class Game extends Component {
           { exampleFormat }
         </p>
 
-        <RecentSubmission />
+        <RecentSubmission 
+          newestLine={this.state.newestLine}
+        />
 
         <PlayerSubmissionForm
           onAddLine={this.addLine}
