@@ -23,6 +23,26 @@ class PlayerSubmissionForm extends Component {
     this.setState({ [name]: value })
   }
 
+  dynamicallyRenderedForm = () => {
+    const { renderFields} = this.props;
+
+    const form = renderFields.map((field) => {
+      if (typeof field !== 'string') {
+        return (<input
+          name={field.key}
+          value={field.keuy}
+          placeholder={field.placeholder}
+          type="text"
+          onChange={this.onValueChange}
+        />
+      )} else {
+        return (field);
+      }
+    })
+
+    return form;
+  }
+
   onFormSubmit = (event) => {
     event.preventDefault();
     const { adj1, noun1, adverb, verb, adj2, noun2, player } = this.state;
@@ -47,17 +67,19 @@ class PlayerSubmissionForm extends Component {
   }
 
   render() {
+    console.log(this.props.renderFields)
     const { adj1, noun1, adverb, verb, adj2, noun2, player } = this.state;
     
     return (
-      <div className="PlayerSubmissionForm">
+      <div className={ this.props.revealPoem ? "hidden" : "PlayerSubmissionForm" }>
         <h3>Player Submission Form for Player #{ player }</h3>
         <form 
           className="PlayerSubmissionForm__form"
           onSubmit={ this.onFormSubmit } 
         >
           <div className="PlayerSubmissionForm__poem-inputs">
-            The
+            { this.dynamicallyRenderedForm() }
+            {/* The
             <input
               name="adj1"
               value={adj1}
@@ -100,7 +122,7 @@ class PlayerSubmissionForm extends Component {
               placeholder="noun"
               type="text"
               onChange={this.onValueChange}
-            />.
+            />. */}
           </div>
 
           <div className="PlayerSubmissionForm__submit">

@@ -12,6 +12,7 @@ class Game extends Component {
     this.state = {
       allLines: [],
       newestLine: null,
+      revealPoem: false,
     }
   }
 
@@ -30,6 +31,7 @@ class Game extends Component {
   render() {
     console.log(this.state.allLines);
     console.log(this.state.newestLine);
+    console.log(this.state.revealPoem);
 
     const exampleFormat = FIELDS.map((field) => {
       if (field.key) {
@@ -52,14 +54,21 @@ class Game extends Component {
         </p>
 
         <RecentSubmission 
+          revealPoem={this.state.revealPoem}
           newestLine={this.state.newestLine}
         />
 
         <PlayerSubmissionForm
+          revealPoem={this.state.revealPoem}
           onAddLine={this.addLine}
+          renderFields={FIELDS}
         />
 
-        <FinalPoem />
+        <FinalPoem 
+          allLines={this.state.allLines}
+          revealPoem={this.state.revealPoem}
+          finalPoemCallback={ () => this.setState({revealPoem: true}) }
+        />
 
       </div>
     );
