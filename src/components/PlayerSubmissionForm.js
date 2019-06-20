@@ -8,14 +8,10 @@ class PlayerSubmissionForm extends Component {
     super(props);
 
     this.state = {
-      adj1: null, 
-      noun1: null, 
-      adverb: null, 
-      verb: null, 
-      adj2: null, 
-      noun2: null,
       player: 1,
     }
+
+
   }
 
   onValueChange = (event) => {
@@ -30,7 +26,7 @@ class PlayerSubmissionForm extends Component {
       if (typeof field !== 'string') {
         return (<input
           name={field.key}
-          value={field.keuy}
+          value={this.state[field.key]}
           placeholder={field.placeholder}
           type="text"
           onChange={this.onValueChange}
@@ -45,29 +41,36 @@ class PlayerSubmissionForm extends Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    const { adj1, noun1, adverb, verb, adj2, noun2, player } = this.state;
 
-    const newLine = `${adj1} ${noun1} ${adverb} ${verb} ${adj2} ${noun2} .`
+    const newLine = this.props.renderFields.map((field) => {
+    if (typeof field !== 'string') {
+        return this.state[field.key]
+      } else {
+        return field;
+      }
+    });
+    this.props.onAddLine(newLine.join(' '));
 
-    this.setState({
-      adj1: '', 
-      noun1: '',
-      adverb: '',
-      verb: '', 
-      adj2: '',
-      noun2: ''
-    });  
+    this.resetFields();
+  }
 
-    this.props.onAddLine(newLine);
-
-    let updatePlayer = player + 1;
-    this.setState({
+  resetFields = () => {
+    let updatePlayer = this.state.player + 1;
+    let resetStateFields = {
       player: updatePlayer,
-    })
+    };
+    
+    for (let field of this.props.renderFields) {
+      if (typeof field !== 'string') {
+        resetStateFields[field.key] = '';
+      }
+    }
+    
+    this.setState(resetStateFields)
   }
 
   render() {
-    console.log(this.props.renderFields)
+    console.log(this.state)
     const { adj1, noun1, adverb, verb, adj2, noun2, player } = this.state;
     
     return (
